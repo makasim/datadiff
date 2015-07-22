@@ -15,7 +15,7 @@ View
 ----
 
 ```bash
-curl -X GET http://localhost:8080/audit/yourModelId.html -i;
+curl -X GET http://localhost:8080/audit/{yourType}/{yourId}.html -i;
 ```
 
 TODO image here
@@ -26,7 +26,7 @@ Api
 You can send commit which contains data and some meta info to the endpoint:
 
 ```bash
-curl -X POST -d '@commit.json' http://localhost:8080/audit/yourModelId/commit -i -H "Content-Type: application/json";
+curl -X POST -d '@commit.json' http://localhost:8080/audit/{yourType}/{yourId}/commit -i -H "Content-Type: application/json";
 ```
 
 An example of the commit:
@@ -66,7 +66,7 @@ An example of the commit:
 Get the last data and all its commits:
 
 ```bash
-curl -X GET http://localhost:8080/audit/yourModelId -i;
+curl -X GET http://localhost:8080/audit/{yourType}/{yourId} -i;
 ```
 
 It returns something like:

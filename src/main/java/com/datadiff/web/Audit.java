@@ -3,17 +3,24 @@ package com.datadiff.web;
 import org.springframework.data.annotation.Id;
 import com.mongodb.DBObject;
 import com.mongodb.BasicDBObject;
+import org.springframework.data.mongodb.core.index.CompoundIndex;
+import org.springframework.data.mongodb.core.index.CompoundIndexes;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
 
 @Document(collection = "datadiff_audit")
+@CompoundIndexes(value = {
+    @CompoundIndex(name = "type_externalId", def = "{'type': 1, 'externalId': 1}", unique = true)
+})
 public class Audit {
 
     @Id
     private String id;
 
     private String externalId;
+
+    private String type;
 
     private DBObject currentData;
 
@@ -35,6 +42,16 @@ public class Audit {
     public void setExternalId(String externalId)
     {
         this.externalId = externalId;
+    }
+
+    public String getType()
+    {
+        return type;
+    }
+
+    public void setType(String type)
+    {
+        this.type = type;
     }
 
     public DBObject getCurrentData() {

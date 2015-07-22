@@ -1,9 +1,7 @@
 package com.datadiff.web;
 
-import java.util.List;
-
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface AuditRepository extends MongoRepository<Audit, String> {
-    public Audit findByExternalId(String externalId);
+    public Audit findByTypeAndExternalId(String type, String externalId);
 }

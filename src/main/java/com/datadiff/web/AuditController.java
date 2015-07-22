@@ -39,14 +39,14 @@ public class AuditController {
         return result;
     }
 
-    @RequestMapping(value = "/audit/{auditId}", method = RequestMethod.GET)
-    public DBObject getAuditJson(@PathVariable String auditId) throws IOException, JsonPatchException {
-        return auditViewConverter.convert(auditRepository.findByExternalId(auditId));
+    @RequestMapping(value = "/audit/{type}/{auditId}", method = RequestMethod.GET)
+    public DBObject getAuditJson(@PathVariable String type, @PathVariable String auditId) throws IOException, JsonPatchException {
+        return auditViewConverter.convert(auditRepository.findByTypeAndExternalId(type, auditId));
     }
 
-    @RequestMapping(value = "/audit/{auditId}.html", method = RequestMethod.GET)
-    public ModelAndView getAuditHtml(@PathVariable String auditId) throws IOException, JsonPatchException {
-        Audit audit = auditRepository.findByExternalId(auditId);
+    @RequestMapping(value = "/audit/{type}/{auditId}.html", method = RequestMethod.GET)
+    public ModelAndView getAuditHtml(@PathVariable String type, @PathVariable String auditId) throws IOException, JsonPatchException {
+        Audit audit = auditRepository.findByTypeAndExternalId(type, auditId);
 
         DBObject auditView = auditViewConverter.convert(audit);
 
@@ -57,12 +57,13 @@ public class AuditController {
         return model;
     }
 
-    @RequestMapping(value = "/audit/{auditId}/commit", method = RequestMethod.POST, headers = "content-type=application/json")
-    public Audit addCommit(@PathVariable String auditId, @RequestBody String requestBody) throws IOException {
-        Audit audit = auditRepository.findByExternalId(auditId);
+    @RequestMapping(value = "/audit/{type}/{auditId}/commit", method = RequestMethod.POST, headers = "content-type=application/json")
+    public Audit addCommit(@PathVariable String type, @PathVariable String auditId, @RequestBody String requestBody) throws IOException {
+        Audit audit = auditRepository.findByTypeAndExternalId(type, auditId);
         if (audit == null) {
             audit = new Audit();
             audit.setExternalId(auditId);
+            audit.setType(type);
 
             auditRepository.save(audit);
         }
