@@ -1,18 +1,18 @@
 Datadiff
---------
+========
 
 It is simple standalone service which tracks models changes, who changed it. It also provide nice html page to see history or embed it.
 Stores data as JSON PATCHes into mongodb.
 
 Run
-===
+---
 
 ```
 java -jar datadiff-0.1.0.jar
 ```
 
 View
-====
+----
 
 ```
 curl -X GET http://localhost:8080/audit/yourModelId.html -i;
@@ -21,7 +21,7 @@ curl -X GET http://localhost:8080/audit/yourModelId.html -i;
 TODO image here
 
 Api
-===
+---
 
 You can send commit which contains data and some meta info to the endpoint:
 
@@ -148,3 +148,9 @@ It returns something like:
    ]
 }
 ```
+
+Licence
+-------
+
+MIT licence
+
