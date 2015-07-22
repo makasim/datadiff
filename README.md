@@ -1,8 +1,8 @@
 Datadiff
 ========
 
-It is simple standalone service which tracks models changes, who changed it. It also provide nice html page to see history or embed it.
-Stores data as JSON PATCHes into mongodb.
+It is simple service which tracks models changes and who\when\why changed it. It also provide nice html page to see history.
+Service stores data as json patches (RFC 6902) into mongodb.
 
 Run
 ---
