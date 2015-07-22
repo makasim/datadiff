@@ -3,8 +3,11 @@ package com.datadiff.web;
 import org.springframework.data.annotation.Id;
 import com.mongodb.DBObject;
 import com.mongodb.BasicDBObject;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.ArrayList;
 
+@Document(collection = "datadiff_audit")
 public class Audit {
 
     @Id
@@ -48,7 +51,7 @@ public class Audit {
     public ArrayList<Commit> getCommits() {
 
         // TODO use static array.
-        ArrayList<Commit> commits = new ArrayList();
+        ArrayList<Commit> commits = new ArrayList<Commit>();
 
         int index = 0;
         for (DBObject diff : diffs) {

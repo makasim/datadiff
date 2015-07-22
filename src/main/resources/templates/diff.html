@@ -14,7 +14,7 @@
 
 <script th:inline="javascript">
     /*<![CDATA[*/
-    var commits = /*[[${commits}]]*/;
+    var audit = /*[[${audit}]]*/;
     /*]]>*/
 </script>
 
@@ -24,8 +24,8 @@
 <script src="/js/jsondiffpatch-formatters.min.js"></script>
 <script>
     jQuery(function($) {
-        var left = commits[0].data;
-        var right = commits[1].data;
+        var left = audit.commits[0].data;
+        var right = audit.commits[1].data;
         var delta = jsondiffpatch.diff(left, right);
 
         // beautiful html diff
