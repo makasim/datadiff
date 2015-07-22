@@ -7,14 +7,14 @@ Service stores data as json patches (RFC 6902) into mongodb.
 Run
 ---
 
-```
+```bash
 java -jar datadiff-0.1.0.jar
 ```
 
 View
 ----
 
-```
+```bash
 curl -X GET http://localhost:8080/audit/yourModelId.html -i;
 ```
 
@@ -25,13 +25,13 @@ Api
 
 You can send commit which contains data and some meta info to the endpoint:
 
-```
+```bash
 curl -X POST -d '@commit.json' http://localhost:8080/audit/yourModelId/commit -i -H "Content-Type: application/json";
 ```
 
 An example of the commit:
 
-```
+```json
 {
     "data": {
       "passowrd": "xyz12312312",
@@ -65,12 +65,12 @@ An example of the commit:
 
 Get the last data and all its commits:
 
-```
+```bash
 curl -X GET http://localhost:8080/audit/yourModelId -i;
 ```
 
 It returns something like:
-```
+```json
 {
     "commits": [
      {
