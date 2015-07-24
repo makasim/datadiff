@@ -23,10 +23,13 @@ public class AuditController {
     private AuditRepository auditRepository;
 
     @Autowired
-    private MongoJaksonConverter converter;
+    private AuditViewConverter auditViewConverter;
 
     @Autowired
-    private AuditViewConverter auditViewConverter;
+    private AddCommit addCommit;
+
+    @Autowired
+    ObjectMapper objectMapper;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public DBObject welcome() {
@@ -58,31 +61,14 @@ public class AuditController {
     }
 
     @RequestMapping(value = "/audit/{type}/{auditId}/commit", method = RequestMethod.POST, headers = "content-type=application/json")
-    public Audit addCommit(@PathVariable String type, @PathVariable String auditId, @RequestBody String requestBody) throws IOException {
-        Audit audit = auditRepository.findByTypeAndExternalId(type, auditId);
-        if (audit == null) {
-            audit = new Audit();
-            audit.setExternalId(auditId);
-            audit.setType(type);
-
-            auditRepository.save(audit);
-        }
-
-        ObjectMapper mapper = new ObjectMapper();
-
-        JsonNode requestBodyNode = mapper.readTree(requestBody);
+    public DBObject addCommit(@PathVariable String type, @PathVariable String auditId, @RequestBody String requestBody) throws IOException, JsonPatchException {
+        JsonNode requestBodyNode = objectMapper.readTree(requestBody);
         JsonNode newData = requestBodyNode.get("data");
         JsonNode meta = requestBodyNode.get("meta");
-        JsonNode currentData = mapper.readTree(audit.getCurrentData().toString());
 
-        JsonNode diff = JsonDiff.asJson(currentData, newData);
+        Audit audit = addCommit.add(type, auditId, newData, meta);
 
-        Commit commit = new Commit(converter.convert(diff), converter.convert(meta));
-        audit.addCommit(converter.convert(newData), commit);
-
-        auditRepository.save(audit);
-
-        return audit;
+        return auditViewConverter.convert(audit);
     }
 }
 

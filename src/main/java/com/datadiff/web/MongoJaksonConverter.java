@@ -4,20 +4,22 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.DBObject;
 import com.mongodb.util.JSON;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 
+@Service
 public class MongoJaksonConverter
 {
-    public DBObject convert(JsonNode input) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
+    @Autowired
+    ObjectMapper objectMapper;
 
-        return (DBObject) JSON.parse(mapper.writeValueAsString(input));
+    public DBObject convert(JsonNode input) throws IOException {
+        return (DBObject) JSON.parse(objectMapper.writeValueAsString(input));
     }
 
     public JsonNode convert(DBObject input) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
-
-        return mapper.readTree(input.toString());
+        return objectMapper.readTree(input.toString());
     }
 }

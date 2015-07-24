@@ -16,10 +16,11 @@ public class AuditViewConverter
     @Autowired
     private MongoJaksonConverter converter;
 
-    public DBObject convert(Audit audit) throws IOException, JsonPatchException {
-        ObjectMapper mapper = new ObjectMapper();
+    @Autowired
+    ObjectMapper objectMapper;
 
-        JsonNode data = mapper.readTree("{}");
+    public DBObject convert(Audit audit) throws IOException, JsonPatchException {
+        JsonNode data = objectMapper.readTree("{}");
         ArrayList<DBObject> commits = new ArrayList<DBObject>();
         for (Commit auditCommit : audit.getCommits()) {
             JsonPatch patch = JsonPatch.fromJson(converter.convert(auditCommit.getDiff()));
