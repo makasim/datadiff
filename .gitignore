@@ -15,4 +15,7 @@ hs_err_pid*
 target
 lib
 .vagrant
-bower_components
+frontend/bower_components
+frontend/node_modules
+frontend/.tmp
+frontend/dist

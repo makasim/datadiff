@@ -4,7 +4,7 @@ angular.module('datadiffApp')
   .config(function ($stateProvider) {
     $stateProvider
       .state('main', {
-        url: '/audit/:type/:audit_id',
+        url: '/audit/:type/:audit_id/view',
         templateUrl: 'app/main/main.html',
         controller: 'MainCtrl',
         resolve: {

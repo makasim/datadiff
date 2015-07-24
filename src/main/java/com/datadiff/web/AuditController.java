@@ -47,15 +47,10 @@ public class AuditController {
         return auditViewConverter.convert(auditRepository.findByTypeAndExternalId(type, auditId));
     }
 
-    @RequestMapping(value = "/audit/{type}/{auditId}.html", method = RequestMethod.GET)
+    @RequestMapping(value = "/audit/{type}/{auditId}/view", method = RequestMethod.GET)
     public ModelAndView getAuditHtml(@PathVariable String type, @PathVariable String auditId) throws IOException, JsonPatchException {
-        Audit audit = auditRepository.findByTypeAndExternalId(type, auditId);
-
-        DBObject auditView = auditViewConverter.convert(audit);
-
         ModelAndView model = new ModelAndView();
-        model.setViewName("diff");
-        model.addObject("audit", auditView);
+        model.setViewName("view");
 
         return model;
     }
