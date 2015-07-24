@@ -20,8 +20,8 @@
               <a ng-click="showMeta(commit)" href="#" class="label label-primary">Meta</a>
             </div>
             <div class="col-md-1">
-              <span ng-if="commit.dataScore > 0" class="label label-success">{{commit.dataScore}}</span>
-              <span ng-if="commit.dataScore <= 0" class="label label-danger">{{commit.dataScore}}</span>
+              <span class="label label-success">{{commit.addedCount}}</span>
+              <span class="label label-danger">{{commit.removedCount}}</span>
             </div>
           </div>
         </div>
