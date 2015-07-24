@@ -19,14 +19,26 @@ public class QueueReceiver {
     @Autowired
     ObjectMapper objectMapper;
 
-    public void receive(byte[] messageBytes) throws IOException {
-        JsonNode message = objectMapper.readTree(new String(messageBytes, "UTF-8"));
+    public void receive(byte[] rawMessage) throws Exception {
+        this.receive(new String(rawMessage, "UTF-8"));
+    }
+
+    public void receive(String rawMessage) throws Exception {
+        JsonNode message = objectMapper.readTree(rawMessage);
+
+        if (null == message.get("type").textValue()) {
+            throw new Exception("The message type is empty");
+        }
+        if (null == message.get("id").textValue()) {
+            throw new Exception("The message id is empty");
+        }
+
 
         addCommit.add(
-            message.get("type").toString(),
-            message.get("id").toString(),
-            message.get("data"),
-            message.get("meta")
+                message.get("type").textValue(),
+                message.get("id").textValue(),
+                message.get("data"),
+                message.get("meta")
         );
     }
 

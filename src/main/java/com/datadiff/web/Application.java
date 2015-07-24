@@ -75,10 +75,6 @@ public class Application implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        System.out.println("Waiting five seconds...");
-        Thread.sleep(5000);
-        System.out.println("Sending message...");
-//        rabbitTemplate.convertAndSend(queueName, "Hello from RabbitMQ!");
         queueReceiver().getLatch().await(10000, TimeUnit.MILLISECONDS);
     }
 }
