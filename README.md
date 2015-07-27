@@ -8,7 +8,14 @@ Run
 ---
 
 ```bash
-java -jar datadiff-0.1.0.jar
+java -version
+mvn -version
+npm install
+bower install
+
+./bin/build
+
+java -jar target/datadiff-0.1.0.jar
 ```
 
 View
