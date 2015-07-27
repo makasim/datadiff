@@ -5,8 +5,11 @@ It is simple service which tracks models changes and who\when\why changed it. It
 Service stores data as json patches (RFC 6902) into mongodb.
 
 ------
+
 ![example1](http://oi60.tinypic.com/2ljkn10.jpg)
+
 ------
+
 ![example2](http://oi62.tinypic.com/28vep20.jpg)
 
 Run
