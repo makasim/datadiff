@@ -4,7 +4,8 @@ Datadiff
 It is simple service which tracks models changes and who\when\why changed it. It also provide nice html page to see history.
 Service stores data as json patches (RFC 6902) into mongodb.
 
-![example](http://oi59.tinypic.com/acpys3.jpg)
+![example1](http://oi59.tinypic.com/acpys3.jpg)
+![example2](http://oi62.tinypic.com/28vep20.jpg)
 
 Run
 ---
