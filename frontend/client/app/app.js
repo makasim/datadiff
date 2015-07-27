@@ -8,13 +8,10 @@ angular.module('datadiffApp', [
   'ui.bootstrap',
   'angularMoment'
 ])
-  .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
-    $urlRouterProvider
-      .otherwise('/');
+  .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $sceProvider) {
+    $sceProvider.enabled(false);
 
-
-    //var _ = $window._;
-
+    $urlRouterProvider.otherwise('/');
 
     $locationProvider.html5Mode(true);
   });

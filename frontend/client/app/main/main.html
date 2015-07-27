@@ -5,19 +5,19 @@
       <div ng-repeat="commit in commits | orderBy:'-meta.date'" class="panel panel-default">
         <div class="panel-body">
           <div class="row">
-            <div ng-click="collapse(commit)" class="col-md-2">
+            <div ng-click="show(commit, 'diff')" class="col-md-2">
               <span am-time-ago="commit.meta.date" class="badge"></span>
               <span ng-if="commit.meta.cli" class="label label-warning">cli</span>
               <span ng-if="commit.meta.http_request" class="label label-info">http</span>
             </div>
-            <div ng-click="collapse(commit)" class="col-md-7">
+            <div ng-click="show(commit, 'diff')" class="col-md-7">
               <strong>{{getHeader(commit.meta)}}</strong>
               <h4 ng-if="commit.meta.http_request && commit.meta.user"><small>{{commit.meta.http_request.method}} {{commit.meta.http_request.uri}}</small></h4>
             </div>
             <div class="col-md-2">
-              <a ng-click="showData(commit)" href="#" class="label label-primary">Data</a>
-              <a ng-click="showDiff(commit)" href="#" class="label label-primary">Diff</a>
-              <a ng-click="showMeta(commit)" href="#" class="label label-primary">Meta</a>
+              <a ng-click="show(commit, 'data')" href="#" class="label label-primary">Data</a>
+              <a ng-click="show(commit, 'diff')" href="#" class="label label-primary">Diff</a>
+              <a ng-click="show(commit, 'meta')" href="#" class="label label-primary">Meta</a>
             </div>
             <div class="col-md-1">
               <span class="label label-success">{{commit.addedCount}}</span>
@@ -26,7 +26,7 @@
           </div>
         </div>
         <div collapse="!commit.collapse">
-          <p ng-if="commit.show == 'diff' || (commit.show != 'data' && commit.show != 'meta')" ng-bind-html="commit.htmlDiff"></p>
+          <p ng-if="commit.show == 'diff'" ng-bind-html="commit.htmlDiff"></p>
           <pre ng-if="commit.show == 'data'" class="json">{{ commit.data | json }}</pre>
           <pre ng-if="commit.show == 'meta'" class="json">{{ commit.meta | json }}</pre>
         </div>

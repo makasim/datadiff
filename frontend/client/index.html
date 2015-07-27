@@ -18,6 +18,10 @@
     <!-- build:css({.tmp,client}) app/app.css -->
     <link rel="stylesheet" href="app/app.css">
       <!-- injector:css -->
+      <link rel="stylesheet" href="app/formatters-styles/annotated.css">
+      <link rel="stylesheet" href="app/formatters-styles/formatters-styles/annotated.css">
+      <link rel="stylesheet" href="app/formatters-styles/formatters-styles/html.css">
+      <link rel="stylesheet" href="app/formatters-styles/html.css">
       <!-- endinjector -->
     <!-- endbuild -->
     <link rel="stylesheet" href="/app/formatters-styles/html.css" type="text/css" />
@@ -55,9 +59,12 @@
     <script src="../bower_components/moment/moment.js"></script>
     <script src="../bower_components/angular-moment/angular-moment.js"></script>
     <script src="../bower_components/jsondiffpatch/public/build/jsondiffpatch.js"></script>
+    <script src="../bower_components/json-patch/jsonpatch.js"></script>
+    <script src="../bower_components/object-path/index.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
     <script src="/app/jsondiffpatch-formatters.min.js"></script>
+    <script src="/app/diff_match_patch_uncompressed.js"></script>
 
         <!-- build:js({.tmp,client}) app/app.js -->
         <script src="app/app.js"></script>

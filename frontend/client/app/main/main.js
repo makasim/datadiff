@@ -1,7 +1,9 @@
 'use strict';
 
 angular.module('datadiffApp')
-  .config(function ($stateProvider) {
+  .config(function ($stateProvider, $sceProvider) {
+    $sceProvider.enabled(false);
+
     $stateProvider
       .state('main', {
         url: '/audit/:type/:audit_id/view',

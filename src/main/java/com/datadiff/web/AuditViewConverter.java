@@ -20,14 +20,17 @@ public class AuditViewConverter
     ObjectMapper objectMapper;
 
     public DBObject convert(Audit audit) throws IOException, JsonPatchException {
-        JsonNode data = objectMapper.readTree("{}");
+//        JsonNode data = objectMapper.readTree("{}");
         ArrayList<DBObject> commits = new ArrayList<DBObject>();
+        audit.getCommits();
         for (Commit auditCommit : audit.getCommits()) {
-            JsonPatch patch = JsonPatch.fromJson(converter.convert(auditCommit.getDiff()));
-            data = patch.apply(data);
+//            if (null != auditCommit.getDiff()) {
+//                JsonPatch patch = JsonPatch.fromJson(converter.convert(auditCommit.getDiff()));
+//                data = patch.apply(data);
+//            }
 
             DBObject commit = new BasicDBObject();
-            commit.put("data", converter.convert(data));
+//            commit.put("data", converter.convert(data));
             commit.put("diff", auditCommit.getDiff());
             commit.put("meta", auditCommit.getMeta());
 

@@ -8,7 +8,6 @@ angular.module('datadiffApp')
     };
 
     function getAudit(type,id) {
-      console.log(type, id);
       var request = $http({
         method: "get",
         url: '/audit/'+ type +'/'+ id

@@ -22,14 +22,11 @@ public class Audit {
 
     private String type;
 
-    private DBObject currentData;
-
     private ArrayList<DBObject> diffs;
 
     private ArrayList<DBObject> metas;
 
     public Audit() {
-        this.currentData = new BasicDBObject();
         this.diffs = new ArrayList<DBObject>();
         this.metas = new ArrayList<DBObject>();
     }
@@ -54,13 +51,7 @@ public class Audit {
         this.type = type;
     }
 
-    public DBObject getCurrentData() {
-        return this.currentData;
-    }
-
-    public void addCommit(DBObject currentData, Commit commit) {
-        this.currentData = currentData;
-
+    public void addCommit(Commit commit) {
         diffs.add(commit.getDiff());
         metas.add(commit.getMeta());
     }

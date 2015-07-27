@@ -15,7 +15,9 @@
     "lodash": "~2.4.1",
     "angular-ui-router": "~0.2.10",
     "angular-moment": "~0.10.1",
-    "jsondiffpatch": "~0.1.33"
+    "jsondiffpatch": "~0.1.33",
+    "json-patch": "0.5.0",
+    "object-path": "~0.9.3"
   },
   "devDependencies": {
     "angular-mocks": ">=1.2.*",
