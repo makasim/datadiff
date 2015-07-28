@@ -6,6 +6,7 @@ import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.TopicExchange;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
+import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter;
@@ -33,6 +34,15 @@ public class Application implements CommandLineRunner {
 
     @Value("${rabbitmq.port}")
     private Integer rabbitmqPort;
+
+    @Bean
+    public ConnectionFactory connectionFactory() {
+        CachingConnectionFactory connectionFactory = new CachingConnectionFactory(rabbitmqHost, rabbitmqPort);
+        connectionFactory.setUsername(rabbitmqUsername);
+        connectionFactory.setPassword(rabbitmqPassword);
+
+        return connectionFactory;
+    }
 
     @Bean
     ObjectMapper objectMapper() {
@@ -63,14 +73,9 @@ public class Application implements CommandLineRunner {
     }
 
     @Bean
-    SimpleMessageListenerContainer container(CachingConnectionFactory connectionFactory, MessageListenerAdapter listenerAdapter) throws Exception {
-        connectionFactory.setUsername(rabbitmqUsername);
-        connectionFactory.setPassword(rabbitmqPassword);
-        connectionFactory.setHost(rabbitmqHost);
-        connectionFactory.setPort(rabbitmqPort);
-
+    SimpleMessageListenerContainer container(MessageListenerAdapter listenerAdapter) throws Exception {
         SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
-        container.setConnectionFactory(connectionFactory);
+        container.setConnectionFactory(connectionFactory());
         container.setQueueNames(queueName);
         container.setMessageListener(listenerAdapter);
 
