@@ -5,11 +5,12 @@ import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.TopicExchange;
 import org.springframework.amqp.core.Queue;
-import org.springframework.amqp.rabbit.connection.ConnectionFactory;
+import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -20,6 +21,18 @@ import java.util.concurrent.TimeUnit;
 @SpringBootApplication
 public class Application implements CommandLineRunner {
     final static String queueName = "datadiff_store_commit";
+
+    @Value("${rabbitmq.username}")
+    private String rabbitmqUsername;
+
+    @Value("${rabbitmq.password}")
+    private String rabbitmqPassword;
+
+    @Value("${rabbitmq.host}")
+    private String rabbitmqHost;
+
+    @Value("${rabbitmq.port}")
+    private Integer rabbitmqPort;
 
     @Bean
     ObjectMapper objectMapper() {
@@ -50,7 +63,12 @@ public class Application implements CommandLineRunner {
     }
 
     @Bean
-    SimpleMessageListenerContainer container(ConnectionFactory connectionFactory, MessageListenerAdapter listenerAdapter) {
+    SimpleMessageListenerContainer container(CachingConnectionFactory connectionFactory, MessageListenerAdapter listenerAdapter) throws Exception {
+        connectionFactory.setUsername(rabbitmqUsername);
+        connectionFactory.setPassword(rabbitmqPassword);
+        connectionFactory.setHost(rabbitmqHost);
+        connectionFactory.setPort(rabbitmqPort);
+
         SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
         container.setConnectionFactory(connectionFactory);
         container.setQueueNames(queueName);
