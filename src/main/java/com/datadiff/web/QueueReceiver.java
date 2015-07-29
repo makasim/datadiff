@@ -33,10 +33,9 @@ public class QueueReceiver {
             throw new Exception("The message id is empty");
         }
 
-
         addCommit.add(
-                message.get("type").textValue(),
-                message.get("id").textValue(),
+                (String) message.get("type").textValue(),
+                (String) message.get("id").textValue(),
                 message.get("data"),
                 message.get("meta")
         );
